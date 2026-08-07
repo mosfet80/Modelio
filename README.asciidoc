@@ -9,7 +9,7 @@ link:https://github.com/ModelioOpenSource/Modelio/releases/tag/v6.2.0[*Modelio 6
 https://github.com/ModelioOpenSource/Modelio/wiki[*Modelio 6.2 Documentation*]
 
 === Release Note
-https://github.com/ModelioOpenSource/Modelio/wiki/Release-62[*Modelio 6.2 Release Note*]
+https://github.com/ModelioOpenSource/Modelio/wiki/Modelio-Release-6.2[*Modelio 6.2 Release Note*]
 
 Modelio 6.2 introduces a series of major improvements focused on usability and model exploration. The flagship addition is a brand-new visual query tool that allows all users,technical or not, to build powerful, targeted searches across their models without writing any code. Queries can be filtered by element type, name, properties, and relationships, making it significantly easier to navigate large and complex architectures. This release also brings automatic diagram layout, which intelligently reorganizes graphical elements using algorithms such as tree layout and overlap removal, and is accessible both interactively and through the module API for automation scenarios.
 
